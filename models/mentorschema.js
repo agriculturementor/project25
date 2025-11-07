@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
-
+const farmers = require("./farmerschema.js");
+const Schema = mongoose.Schema;
 const mentorSchema = new mongoose.Schema({
   
   name: {
@@ -46,7 +47,13 @@ set:(v) =>
   type: String,
   enum: ["Online", "Offline", "Both"],
   default: "Online"
-}
+},
+Farmer: [
+     {
+        type: Schema.Types.ObjectId,
+        ref:"farmers",
+     },
+    ],
 
 });
 

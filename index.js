@@ -3,7 +3,7 @@ const app = express();
 const ejsmate = require("ejs-mate");
 const CropPrice = require("./models/CropPrice");
 const mentors = require("./models/mentorschema.js");
-
+const farmer = require("./models/farmerschema.js");
 
  const methodOverride = require("method-override");
 
@@ -89,6 +89,26 @@ app.post("/search", async (req, res) => {
     console.error("Error while searching:", err);
     res.status(500).send("Server Error");
   }
+});
+
+app.get("/connect/:id", async(req, res) => {
+  let id = req.params.id;
+  console.log(id);
+  // const mentor = await mentors.findById(req.params.id);
+  // console.log(mentor);
+     res.render("Newfarmer.ejs", {id});
+});
+
+app.post("/farmers/new/:id", async (req, res) => {
+  const id = req.params.id;
+  console.log(id);
+  const mentor = await mentors.findById(id);
+    const newfarmer = new farmer( req.body.farmer);
+  //  console.log(newfarmer);
+     
+     await mentor.save();
+     await newfarmer.save();
+    res.redirect("/home");
 });
 
 app.listen(8080,(req,res)=>{

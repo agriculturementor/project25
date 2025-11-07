@@ -1,0 +1,82 @@
+<% layout("/layout/new") %>
+<br>
+      <div class="row">
+        <div class="col-8 offset-2">
+            <h3  >Register your self under a mentor</h3>
+    <form action="/farmers/new/<%=id%>" method="post" novalidate class=" needs-validation">
+  
+
+      
+        <div class="mb-3">
+           <b><level for="title" class="form-lebel">Name</level></b> 
+        <input type="text" name="farmer[name]" placeholder="Add Name" class="form-control" required>
+        <div class="invalid-feedback"> Please enter the valid title</div>
+        </div>
+        <div class="mb-3">
+           <b><level for="title" class="form-lebel">URL/image</level></b> 
+        <input type="text" name="farmer[image]" placeholder="Add title" class="form-control" required>
+        <div class="invalid-feedback"> Please enter the valid title</div>
+        </div>
+
+       <div class="mb-3">
+           <b><level for="title" class="form-lebel">district</level></b> 
+        <input type="text" name="farmer[district]" placeholder="Add title" class="form-control" required>
+        <div class="invalid-feedback"> Please enter the valid title</div>
+        </div>
+       
+         
+       <div class="mb-3">
+           <b><level for="title" class="form-lebel">State</level></b> 
+        <input type="text" name="farmer[state]" placeholder="Add State" class="form-control" required>
+        <div class="invalid-feedback"> Please enter the valid title</div>
+        </div>
+       
+       <div class="mb-3">
+           <b><level for="title" class="form-lebel">Village</level></b> 
+        <input type="text" name="farmer[village]" placeholder="Add Village" class="form-control" required>
+        <div class="invalid-feedback"> Please enter the valid title</div>
+        </div>
+       <div class="row">
+      <div class="mb-3 col-md-4">
+        <b><level for="price" class="form-lebel">Age</level></b>
+         <input type="number" name="farmer[age]" placeholder="Add Age" class="form-control" required>
+           <div class="invalid-feedback"> Please enter the valid price</div>
+          
+      </div>
+      <div class="mb-3 col-md-4">
+        <b><level for="price" class="form-lebel">LandArea</level></b>
+         <input type="number" name="farmer[landArea]" placeholder="Add landArea" class="form-control" required>
+           <div class="invalid-feedback"> Please enter the valid price</div>
+          
+      </div>
+      
+       <div class="mb-3 col-md-4">
+        <b><level for="price" class="form-lebel">Contact Number</level></b>
+         <input type="number" name="farmer[contact.phone]" placeholder="Add contact number" class="form-control" required>
+           <div class="invalid-feedback"> Please enter the valid price</div>
+          
+      </div>
+      <div class="mb-3">
+           <b><level for="title" class="form-lebel">Email id</level></b> 
+        <input type="email" name="farmer[contact.email]" placeholder="Email id" class="form-control" required>
+        <div class="invalid-feedback"> Please enter the valid title</div>
+        </div>
+      </div>
+
+       <div class=" mb-3 col-md-8">
+        <b><level for="country" class="form-lebel">Crop</level></b>
+          <input type="text" name="farmer[crops]" placeholder="Add crop" class="form-control" required>
+            <div class="invalid-feedback"> Please enter the valid country name</div>
+      </div>
+         
+      </div>
+      
+       
+     
+        <button class="btn btn-dark">Add</button>
+        <br>
+       
+    </form>
+     </div>
+     </div>
+

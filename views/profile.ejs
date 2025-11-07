@@ -1,13 +1,14 @@
 <% layout("/layout/new") %>
  
  <div class="profile-container">
+  
     <!-- Cover -->
     <div class="cover-photo">
       <img src="<%= mentor.photo %>" alt="Profile Photo" class="profile-photo" id="profileImage">
       <input type="file" id="fileInput" accept="image/*" style="display:none;">
-      <button class="btn btn-light position-absolute bottom-0 end-0 m-3" onclick="document.getElementById('fileInput').click()">
-        <i class="bi bi-camera-fill"></i> Edit Cover
-      </button>
+     <p class=""><%= mentor.contact.email %></p>
+     <p><%= mentor.contact.phone %></p>
+       
     </div>
 
     <!-- Profile Info -->
@@ -30,11 +31,12 @@
 
     <!-- About Section -->
     <div class="about-section">
-      <h5>About</h5>
+      <h5>Practical Advice</h5>
       <p>
-        Passionate computer science undergraduate with a strong interest in data science, machine learning, and software development.
-        Currently pursuing B.Tech at GITM and BS in Data Science from IIT Madras.
-        Enthusiastic about solving real-world problems through technology and data-driven innovation.
+       “Every field tells a story. Listen to your soil, monitor your weather, and choose crops that fit your land. Mixing traditional knowledge with scientific farming will help you get the best yield with minimum cost.” 
       </p>
+       <form action="/connect/<%= mentor._id %>">
+        <button class="btn btn-light">Connect</button>
+       </form>
     </div>
   </div>
