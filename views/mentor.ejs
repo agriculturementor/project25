@@ -1,0 +1,17 @@
+<% layout("/layout/new") %>
+
+    <div class="row row-cols-lg-4 row-cols-md-3 row-cols-sm-1 ">
+<% for(men of mentor){ %>
+     <a href="/mentor/<%= men.id %>">
+  <div class="card mb-3 ms-3" style="width: 18rem;">
+  <img src="<%= men.photo %>" class="card-img-top" alt="some image">
+  <div class="card-body">
+    <h5 class="card-title"><%= men.name %></h5>
+    <p class="card-text"><%= men.expertise %></p>
+    <!-- <a href="#" class="btn btn-primary">Go somewhere</a> -->
+  </div>
+</div>
+ </a>
+<% } %>
+</div>
+

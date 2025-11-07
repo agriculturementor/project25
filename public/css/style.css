@@ -1,0 +1,224 @@
+.body{
+    padding: 4px;
+     background-color: white; 
+    font-family: "Plus Jakarta Sans", sans-serif !important;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh !important;
+}
+.container{
+    flex: 1;
+}
+.nav{
+  height: 80px !important;
+  position: sticky !important;
+  top: 0 !important;
+}
+.f-info{
+   display: grid;
+  place-items: center; 
+   
+    background-color: #ebebeb;
+    height: 8rem;
+    
+   
+}
+
+  .profile-container {
+      background-color: white;
+      border-radius: 10px;
+      margin: 40px auto;
+      width: 100%;
+      /* max-width: 800px; */
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      overflow: hidden;
+    }
+
+    .cover-photo {
+      height: 180px;
+      background: linear-gradient(120deg, #a3bfcf, #b8cbd4);
+      position: relative;
+    }
+
+    .profile-photo {
+      position: absolute;
+      bottom: -60px;
+      left: 40px;
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      border: 4px solid white;
+      object-fit: cover;
+      background-color: #fff;
+    }
+
+    .profile-info {
+      padding: 80px 20px 20px 20px;
+    }
+
+    .profile-info h3 {
+      font-weight: 600;
+    }
+
+    .profile-info p {
+      margin: 2px 0;
+      color: #555;
+    }
+
+    .profile-buttons {
+      margin-top: 15px;
+    }
+
+    .profile-buttons .btn {
+      border-radius: 20px;
+      margin-right: 8px;
+    }
+
+    .about-section {
+      padding: 20px;
+      border-top: 1px solid #ddd;
+    }
+
+    .about-section h5 {
+      font-weight: 600;
+    }
+
+    @media (max-width: 576px) {
+      .profile-photo {
+        left: 50%;
+        transform: translateX(-50%);
+      }
+      .profile-info {
+        text-align: center;
+        padding-top: 100px;
+      }
+    }
+    /* home page */
+    /* body {
+      font-family: 'Inter', sans-serif;
+      background-color: #f5f7fa;
+    } */
+
+    .sidebar {
+  
+      width: 260px;
+      min-height: 85vh;
+      background-color: #fff;
+      border-right: 1px solid #e0e0e0;
+     position: fixed;
+      padding: 20px;
+      overflow-y: auto;
+    }
+    .flex-column{
+      display: flex;
+      flex-direction: column;
+    }
+    .nav-menu {
+  display: flex;           /* Arrange items in a row */
+  flex-direction: column;   /* Align vertically center */
+  gap: 20px;               
+}
+
+    .sidebar .nav-link {
+
+      color: #333;
+      font-weight: 500;
+      border-radius: 10px;
+      margin-bottom: 8px;
+    }
+
+    .sidebar .nav-link.active {
+      background-color: #e6f4ea;
+      color: #0b8a2a;
+    }
+
+    .help-box {
+      background-color: #0b8a2a;
+      color: #fff;
+      border-radius: 12px;
+      padding: 20px;
+      margin-top: 40px;
+    }
+
+    .help-box .btn {
+      background-color: #fff;
+      color: #0b8a2a;
+      font-weight: 600;
+      width: 100%;
+    }
+
+    .main-content {
+      margin-left: 280px;
+      padding: 40px;
+    }
+
+    .hero {
+      background: linear-gradient(rgba(0,128,0,0.65), rgba(0,128,0,0.65)), 
+                  url('https://images.unsplash.com/photo-1501004318641-b39e6451bec6?auto=format&fit=crop&w=1200&q=60');
+      background-size: cover;
+      border-radius: 20px;
+      color: white;
+      padding: 60px;
+      margin-bottom: 30px;
+    }
+
+    .hero h1 {
+      font-weight: 700;
+      font-size: 2.5rem;
+    }
+
+    .hero p {
+      font-size: 1.1rem;
+      margin-top: 10px;
+    }
+
+    .hero .btn {
+      border-radius: 10px;
+      padding: 10px 24px;
+      font-weight: 600;
+    }
+
+    .hero .btn-outline-light {
+      border: 2px solid #fff;
+    }
+
+    .stats-card {
+      border: none;
+      border-radius: 20px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+      padding: 20px;
+      text-align: left;
+    }
+
+    .stats-card small {
+      color: green;
+    }
+
+    .search-bar {
+      background: white;
+      border-radius: 12px;
+      padding: 10px 15px;
+      display: flex;
+      align-items: center;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+    }
+
+    .search-bar input {
+      border: none;
+      outline: none;
+      width: 100%;
+    }
+
+    .search-bar button {
+      background-color: #0b8a2a;
+      color: white;
+      border: none;
+      padding: 8px 12px;
+      border-radius: 8px;
+    }
+     .card-body{
+      border-radius: 5rem ;
+      width:250px;
+      height: 150px;
+     }
+      

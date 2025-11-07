@@ -1,0 +1,70 @@
+<% layout("/layout/new") %>
+<br>
+      <div class="row">
+        <div class="col-8 offset-2">
+            <h3  >Add New Prices</h3>
+    <form action="/Price/New/add" method="post" novalidate class=" needs-validation">
+  
+
+      
+        <div class="mb-3">
+           <b><level for="title" class="form-lebel">State</level></b> 
+        <input type="text" name="Price[state]" placeholder="Add title" class="form-control" required>
+        <div class="invalid-feedback"> Please enter the valid title</div>
+        </div>
+       
+       <div class="mb-3">
+           <b><level for="title" class="form-lebel">district</level></b> 
+        <input type="text" name="Price[district]" placeholder="Add title" class="form-control" required>
+        <div class="invalid-feedback"> Please enter the valid title</div>
+        </div>
+       
+         
+       <div class="mb-3">
+           <b><level for="title" class="form-lebel">Mandi</level></b> 
+        <input type="text" name="Price[mandi]" placeholder="Add title" class="form-control" required>
+        <div class="invalid-feedback"> Please enter the valid title</div>
+        </div>
+       
+       <div class="mb-3">
+           <b><level for="title" class="form-lebel">Crop</level></b> 
+        <input type="text" name="Price[crop]" placeholder="Add title" class="form-control" required>
+        <div class="invalid-feedback"> Please enter the valid title</div>
+        </div>
+       <div class="row">
+      <div class="mb-3 col-md-4">
+        <b><level for="price" class="form-lebel">MinPrice</level></b>
+         <input type="number" name="Price[minPrice]" placeholder="Add minPrice" class="form-control" required>
+           <div class="invalid-feedback"> Please enter the valid price</div>
+          
+      </div>
+      <div class="mb-3 col-md-4">
+        <b><level for="price" class="form-lebel">MaxPrice</level></b>
+         <input type="number" name="Price[maxPrice]" placeholder="Add maxPrice" class="form-control" required>
+           <div class="invalid-feedback"> Please enter the valid price</div>
+          
+      </div>
+      <div class="mb-3 col-md-4">
+        <b><level for="price" class="form-lebel">AvgPrice</level></b>
+         <input type="number" name="Price[avgPrice]" placeholder="Add avgPrice" class="form-control" required>
+           <div class="invalid-feedback"> Please enter the valid price</div>
+          
+      </div>
+
+       <div class=" mb-3 col-md-8">
+        <b><level for="country" class="form-lebel">Unit</level></b>
+          <input type="text" name="Price[unit]" placeholder="Add unit" class="form-control" required>
+            <div class="invalid-feedback"> Please enter the valid country name</div>
+      </div>
+         
+      </div>
+      
+       
+     
+        <button class="btn btn-dark">Add</button>
+        <br>
+       
+    </form>
+     </div>
+     </div>
+

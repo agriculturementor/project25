@@ -1,0 +1,23 @@
+<% layout("/layout/new") %>
+
+<div class="row row-cols-lg-4 row-cols-md-3 row-cols-sm-1  ">
+      <% for(const price of allprice){ %>
+        <div class="card mb-3 ms-3" style="width: 18rem; height: 20rem;">
+  <div class="card-body  ">
+    <h5 class="card-title">State- <%= price.state %></h5>
+    <h6> District- <%= price.district %> </h6>
+    <h6 class="card-subtitle mb-2 text-body-secondary">Mandi- <%= price.mandi  %></h6>
+    <p class="card-text">Crop- <b><i><%= price.crop %></i></b></p>
+    <p class="card-text">Min Price- <%= price.minPrice %>/ <%= price.unit %></p>
+    <p class="card-text">Avg Price- <%= price.avgPrice %>/<%= price.unit %></p>
+    <p class="card-text">Max Price- <%= price.maxPrice %>/<%= price.unit %></p>
+    <!-- <a href="#" class="card-link">Card link</a>
+    <a href="#" class="card-link">Another link</a> -->
+  </div>
+</div>
+        
+        
+       
+      <% } %>
+
+    </div>

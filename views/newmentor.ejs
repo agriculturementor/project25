@@ -1,0 +1,72 @@
+<% layout("/layout/new") %>
+
+<br>
+      <div class="row">
+        <div class="col-8 offset-2">
+            <h3  >List as a mentor</h3>
+    <form action="/mentor/new/add" method="post" novalidate class=" needs-validation">
+  
+
+      
+        <div class="mb-3">
+           <b><level for="title" class="form-lebel">Name</level></b> 
+        <input type="text" name="Mentor[name]" placeholder="Add name" class="form-control" required>
+        <div class="invalid-feedback"> Please enter the valid title</div>
+        </div>
+       
+       <div class="mb-3">
+           <b><level for="title" class="form-lebel">Expertise</level></b> 
+        <input type="text" name="Mentor[expertise]" placeholder="Add expertise" class="form-control" required>
+        <div class="invalid-feedback"> Please enter the valid title</div>
+        </div>
+        <div class="mb-3">
+           <b><level for="title" class="form-lebel">Url/profile photo</level></b> 
+        <input type="text" name="Mentor[photo]" placeholder="Add Url/profile photo" class="form-control" required>
+        <div class="invalid-feedback"> Please enter the valid title</div>
+        </div>
+       
+         
+       <div class="mb-3">
+           <b><level for="title" class="form-lebel">State and District</level></b> 
+        <input type="text" name="Mentor[location]" placeholder="State and District" class="form-control" required>
+        <div class="invalid-feedback"> Please enter the valid title</div>
+        </div>
+       
+       <div class="mb-3">
+           <b><level for="title" class="form-lebel">Availability- online/offline</level></b> 
+        <input type="text" name="Mentor[availability]" placeholder="Online/Offline/Both" class="form-control" required>
+        <div class="invalid-feedback"> Please enter the valid title</div>
+        </div>
+       <div class="row">
+      <div class="mb-3 col-md-4">
+        <b><level for="price" class="form-lebel">Experience</level></b>
+         <input type="number" name="Mentor[experience]" placeholder="Experience" class="form-control" required>
+           <div class="invalid-feedback"> Please enter the valid price</div>
+          
+      </div>
+      <div class="mb-3 col-md-4">
+        <b><level for="price" class="form-lebel">Phone Number</level></b>
+         <input type="number" name="Mentor[contact.phone]" placeholder="contact number" class="form-control" required>
+           <div class="invalid-feedback"> Please enter the valid price</div>
+          
+      </div>
+      <div class="mb-3">
+           <b><level for="title" class="form-lebel">Email id</level></b> 
+        <input type="email" name="Mentor[contact.email]" placeholder="Email id" class="form-control" required>
+        <div class="invalid-feedback"> Please enter the valid title</div>
+        </div>
+      </div>
+
+    
+         
+      </div>
+      
+       
+     
+        <button class="btn btn-dark">Add</button>
+        <br>
+       
+    </form>
+     </div>
+     </div>
+

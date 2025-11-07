@@ -1,0 +1,102 @@
+<% layout("/layout/new") %>
+
+<div class="sidebar">
+    <h4 class="fw-bold mb-0"><i class="bi bi-leaf me-2 text-success"></i>FarmConnect</h4>
+    <p class="text-muted">Northeast India</p>
+
+    <nav class=" flex-column nav-menu">
+      <a href="#" class="nav-link active"><i class="bi bi-house-door me-2"></i>Home</a>
+      <a href="/mentor" class="nav-link"><i class="bi bi-people me-2"></i>Find Advisors</a>
+      <a href="/mentor/new" class="nav-link"><i class="bi bi-people me-2"></i>List as a mentor</a>
+      <a href="#" class="nav-link"><i class="bi bi-chat-dots me-2"></i>Community</a>
+      <a href="#" class="nav-link"><i class="bi bi-file-earmark-text me-2"></i>Government Schemes</a>
+    </nav>
+
+    <div class="help-box">
+      <h6><i class="bi bi-telephone me-2"></i>Need Help?</h6>
+      <p class="mb-3">Our support team is here to assist you with any questions.</p>
+      <button class="btn btn-light">Contact Support</button>
+    </div>
+  </div>
+
+  <!-- Main content -->
+  <div class="main-content">
+    <div class="hero">
+      <h1>Empowering Northeast Farmers</h1>
+      <p>Connect with expert advisors, access live market rates, and grow your farming success</p>
+      <div class="mt-4">
+       
+        <a href="/mentor"><button class="btn btn-light me-2">Find an Advisor</button></a> 
+      
+        <a href="#pricebox"><button class="btn btn-outline-light">View Market Rates</button></a>
+      </div>
+    </div>
+
+    <!-- Stats -->
+    <div class="row g-4">
+      <div class="col-md-4">
+        <div class="card stats-card">
+          <div class="card-body ">
+            <h6 class="text-muted"><i class="bi bi-person me-2 text-success"></i>Total Farmers</h6>
+            <h3>0</h3>
+            <small><i class="bi bi-graph-up-arrow me-1"></i>+12% this month</small>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-4">
+        <div class="card stats-card">
+          <div class="card-body">
+            <h6 class="text-muted"><i class="bi bi-people-fill me-2 text-warning"></i>Expert Advisors</h6>
+            <h3><%= mentor.length %></h3>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-4">
+        <div class="card stats-card">
+          <div class="card-body">
+            <h6 class="text-muted"><i class="bi bi-award me-2 text-success"></i>Verified Advisors</h6>
+            <h3><%= mentor.length %></h3>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Search section -->
+    <div class="mt-5">
+      <h5><i class="bi bi-geo-alt me-2 text-success"></i>Live Crop Rates</h5>
+      <div class="search-bar mt-3 ">
+       <form action="/search" method="post" class="d-flex">
+         <input type="text" name="crop" class="form-control  col-6 offset-2" placeholder="Search district,state and crop.." required>
+         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <button class="btn btn-light"><i class="bi bi-search"></i></button>
+       </form>
+      </div>
+    <div id="pricebox" class=" row row-cols-lg-4 row-cols-md-3 row-cols-sm-1  ">
+      <% for(const price of allprice){ %>
+        <div class="card mb-3 ms-3" style="width: 18rem; height: 20rem;">
+  <div class="card-body  ">
+    <h5 class="card-title">State- <%= price.state %></h5>
+    <h6> District- <%= price.district %> </h6>
+    <h6 class="card-subtitle mb-2 text-body-secondary">Mandi- <%= price.mandi  %></h6>
+    <p class="card-text">Crop- <%= price.crop %></p>
+    <p class="card-text">Min Price- <%= price.minPrice %>/<%= price.unit %></p>
+    <p class="card-text">Avg Price- <%= price.avgPrice %>/<%=price.unit %></p>
+    <p class="card-text">Max Price- <%= price.maxPrice %>/<%=price.unit %></p>
+    <!-- <a href="#" class="card-link">Card link</a>
+    <a href="#" class="card-link">Another link</a> -->
+  </div>
+</div>
+        
+        
+       
+      <% } %>
+
+    </div>
+
+  </div>
+</div>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>

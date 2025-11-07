@@ -1,0 +1,40 @@
+<% layout("/layout/new") %>
+ 
+ <div class="profile-container">
+    <!-- Cover -->
+    <div class="cover-photo">
+      <img src="<%= mentor.photo %>" alt="Profile Photo" class="profile-photo" id="profileImage">
+      <input type="file" id="fileInput" accept="image/*" style="display:none;">
+      <button class="btn btn-light position-absolute bottom-0 end-0 m-3" onclick="document.getElementById('fileInput').click()">
+        <i class="bi bi-camera-fill"></i> Edit Cover
+      </button>
+    </div>
+
+    <!-- Profile Info -->
+    <div class="profile-info">
+      <h3><%= mentor.name %> <i class="bi bi-patch-check-fill text-primary"></i></h3>
+      <p><%= mentor.expertise %></p>
+      <p><i class="bi bi-geo-alt"></i> <%= mentor.location %>  </p>
+      <!-- <p class="text-muted">500+ connections</p> -->
+
+      <div class="profile-buttons">
+        <!-- <button class="btn btn-primary"><i class="bi bi-chat-dots"></i> Message</button>
+        <button class="btn btn-outline-primary"><i class="bi bi-person-plus"></i> Follow</button>
+        <button class="btn btn-outline-secondary dropdown-toggle" data-bs-toggle="dropdown">More</button> -->
+        <ul class="dropdown-menu">
+          <li><a class="dropdown-item" href="#">Share profile</a></li>
+          <li><a class="dropdown-item" href="#">Save profile</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- About Section -->
+    <div class="about-section">
+      <h5>About</h5>
+      <p>
+        Passionate computer science undergraduate with a strong interest in data science, machine learning, and software development.
+        Currently pursuing B.Tech at GITM and BS in Data Science from IIT Madras.
+        Enthusiastic about solving real-world problems through technology and data-driven innovation.
+      </p>
+    </div>
+  </div>
