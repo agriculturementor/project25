@@ -1,42 +1,163 @@
 <% layout("/layout/new") %>
- 
- <div class="profile-container">
-  
+
+<style>
+/* ===== Mentor Profile – Formal Light Theme (no JS/backend changes) ===== */
+:root{
+  --bg:#f7f8fa; --surface:#ffffff; --border:#e5e7eb;
+  --text:#111827; --muted:#6b7280; --accent:#16a34a; --accent-ink:#065f46;
+}
+body{ background:var(--bg); color:var(--text); }
+
+.profile-shell{
+  max-width: 960px;
+  margin: 24px auto;
+  padding: 0 16px;
+}
+
+.profile-card{
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0,0,0,.04);
+}
+
+/* Cover area */
+.cover-photo{
+  position: relative;
+  min-height: 160px;
+  background: linear-gradient(135deg, #dcfce7, #ffffff);
+  border-bottom: 1px solid var(--border);
+}
+
+/* Avatar */
+.profile-photo{
+  width: 120px; height: 120px; object-fit: cover;
+  border-radius: 100%;
+  border: 4px solid #fff;
+  position: absolute; left: 24px; bottom: -60px; /* overlaps into body */
+  background:#fff;
+}
+
+/* Contact chips under cover (right side) */
+.cover-contacts{
+  position: absolute; right: 16px; bottom: 12px;
+  display: flex; gap: 8px; flex-wrap: wrap; justify-content: flex-end;
+}
+.chip{
+  display: inline-flex; align-items: center; gap: 6px;
+  background:#f4f7f9; color:#0b3b2a;
+  border:1px solid var(--border); border-radius: 999px;
+  padding: 6px 10px; font-size: .9rem;
+}
+
+/* Info row */
+.profile-info{
+  padding: 72px 24px 16px; /* top accounts for avatar overlap */
+  display: grid; grid-template-columns: 1fr auto; gap: 12px;
+}
+.profile-info h3{
+  margin: 0 0 4px 0; font-weight: 800;
+}
+.profile-sub{
+  color: var(--muted); margin: 0;
+}
+.profile-meta{
+  color: var(--muted); margin: 4px 0 0 0; display: flex; align-items: center; gap: 6px;
+}
+
+/* Action buttons */
+.profile-actions{
+  display: flex; align-items: center; gap: 8px; align-self: start;
+}
+.btn-soft{
+  border: 1px solid var(--border); background:#fff; color:#111827;
+  border-radius: 10px; padding:.6rem .9rem;
+}
+.btn-accent{
+  background: var(--accent); color:#fff; border: none; border-radius: 10px; padding:.6rem 1rem;
+}
+.btn-soft:hover{ background:#f3f4f6; }
+.btn-accent:hover{ filter: brightness(.95); }
+
+/* About section */
+.about-section{
+  border-top: 1px solid var(--border);
+  padding: 16px 24px 20px;
+}
+.about-section h5{ margin: 0 0 8px 0; }
+.quote{
+  background:#f8fafc; border:1px solid var(--border); border-radius: 10px;
+  padding:12px 14px; color:#0f172a;
+  font-style: italic; line-height:1.45;
+}
+
+/* Connect button row */
+.connect-row{
+  display:flex; justify-content:flex-end; gap:8px; margin-top:12px;
+}
+.connect-row .btn{ border-radius:10px; }
+
+/* File input remains hidden as you had */
+#fileInput{ display:none; }
+
+/* Responsive */
+@media (max-width: 576px){
+  .profile-photo{ left: 16px; width: 96px; height: 96px; bottom: -48px; }
+  .profile-info{ padding-top: 64px; grid-template-columns: 1fr; }
+  .profile-actions{ justify-content: flex-start; }
+  .cover-contacts{ position: static; padding: 10px 12px 12px; }
+}
+</style>
+
+<div class="profile-shell">
+  <div class="profile-card">
+
     <!-- Cover -->
     <div class="cover-photo">
       <img src="<%= mentor.photo %>" alt="Profile Photo" class="profile-photo" id="profileImage">
-      <input type="file" id="fileInput" accept="image/*" style="display:none;">
-     <p class=""><%= mentor.contact.email %></p>
-     <p><%= mentor.contact.phone %></p>
-       
+      <input type="file" id="fileInput" accept="image/*">
+
+      <div class="cover-contacts">
+        <span class="chip"><i class="bi bi-envelope"></i> <%= mentor.contact.email %></span>
+        <span class="chip"><i class="bi bi-telephone"></i> <%= mentor.contact.phone %></span>
+      </div>
     </div>
 
     <!-- Profile Info -->
     <div class="profile-info">
-      <h3><%= mentor.name %> <i class="bi bi-patch-check-fill text-primary"></i></h3>
-      <p><%= mentor.expertise %></p>
-      <p><i class="bi bi-geo-alt"></i> <%= mentor.location %>  </p>
-      <!-- <p class="text-muted">500+ connections</p> -->
+      <div>
+        <h3>
+          <%= mentor.name %>
+          <i class="bi bi-patch-check-fill" style="color:#0ea5a5" title="Verified"></i>
+        </h3>
+        <p class="profile-sub"><%= mentor.expertise %></p>
+        <p class="profile-meta"><i class="bi bi-geo-alt"></i> <%= mentor.location %></p>
+      </div>
 
-      <div class="profile-buttons">
-        <!-- <button class="btn btn-primary"><i class="bi bi-chat-dots"></i> Message</button>
-        <button class="btn btn-outline-primary"><i class="bi bi-person-plus"></i> Follow</button>
-        <button class="btn btn-outline-secondary dropdown-toggle" data-bs-toggle="dropdown">More</button> -->
-        <ul class="dropdown-menu">
-          <li><a class="dropdown-item" href="#">Share profile</a></li>
-          <li><a class="dropdown-item" href="#">Save profile</a></li>
-        </ul>
+      <div class="profile-actions">
+        <!-- Buttons kept optional; no JS added -->
+        <!-- <button class="btn-soft"><i class="bi bi-chat-dots"></i> Message</button>
+        <button class="btn-soft"><i class="bi bi-person-plus"></i> Follow</button> -->
+        <form action="/connect/<%= mentor._id %>">
+          <button class="btn-accent"><i class="bi bi-link-45deg me-1"></i>Connect</button>
+        </form>
       </div>
     </div>
 
     <!-- About Section -->
     <div class="about-section">
       <h5>Practical Advice</h5>
-      <p>
-       “Every field tells a story. Listen to your soil, monitor your weather, and choose crops that fit your land. Mixing traditional knowledge with scientific farming will help you get the best yield with minimum cost.” 
-      </p>
-       <form action="/connect/<%= mentor._id %>">
-        <button class="btn btn-light">Connect</button>
-       </form>
+      <div class="quote">
+        “Every field tells a story. Listen to your soil, monitor your weather, and choose crops that fit your land.
+        Mixing traditional knowledge with scientific farming will help you get the best yield with minimum cost.”
+      </div>
+
+      <div class="connect-row">
+        <!-- Secondary CTA if needed -->
+        <a href="/mentor" class="btn btn-soft"><i class="bi bi-arrow-left me-1"></i>Back to Mentors</a>
+      </div>
     </div>
+
   </div>
+</div>

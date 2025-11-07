@@ -1,0 +1,105 @@
+<% layout("/layout/new") %>
+
+<style>
+:root{--bg:#f9fafb;--card:#fff;--border:#e5e7eb;--text:#111827;--muted:#6b7280;--accent:#16a34a}
+body{background:var(--bg);color:var(--text)}
+.fc-card{background:var(--card);border:1px solid var(--border);border-radius:12px;box-shadow:0 2px 6px rgba(0,0,0,.04)}
+.fc-head{border-bottom:1px solid var(--border);padding:1rem 1.25rem}
+.fc-body{padding:1.25rem}
+.form-control{border-radius:10px;border:1px solid var(--border);padding:.7rem .9rem}
+.btn-success{background:var(--accent);border:none;border-radius:10px;padding:.6rem 1rem}
+.btn-outline-secondary{border:1px solid var(--border);border-radius:10px}
+.post{background:#fff;border:1px solid var(--border);border-radius:12px;padding:1rem}
+.post h5{margin:0 0 .25rem 0}
+.post small{color:var(--muted)}
+.tag{font-size:.75rem;background:#ecfdf5;border:1px solid #bbf7d0;color:#065f46;padding:.15rem .45rem;border-radius:999px}
+</style>
+
+<div class="container py-3">
+  <div class="row justify-content-center g-3">
+    <div class="col-lg-8">
+      <div class="fc-card">
+        <div class="fc-head d-flex align-items-center justify-content-between">
+          <h3 class="mb-0">Community</h3>
+          <span class="tag">Mentor Announcements</span>
+        </div>
+        <div class="fc-body">
+          <!-- Composer (client-side only; stores to localStorage) -->
+          <form id="postForm" class="row g-3" onsubmit="return false;">
+            <div class="col-md-6">
+              <label class="form-label">Mentor Name</label>
+              <input id="author" class="form-control" placeholder="Your name">
+            </div>
+            <div class="col-md-6">
+              <label class="form-label">Topic (optional)</label>
+              <input id="topic" class="form-control" placeholder="e.g., Paddy, Tea, Poultry">
+            </div>
+            <div class="col-12">
+              <label class="form-label">Announcement / Advice</label>
+              <textarea id="content" class="form-control" rows="3" placeholder="Keep it concise and helpful for farmers"></textarea>
+            </div>
+            <div class="col-12 d-flex gap-2">
+              <button id="publishBtn" class="btn btn-success"><i class="bi bi-megaphone me-1"></i>Publish</button>
+              <button id="clearBtn" type="button" class="btn btn-outline-secondary">Clear all (local)</button>
+            </div>
+          </form>
+        </div>
+      </div>
+
+      <!-- Feed -->
+      <div class="mt-3" id="feed"></div>
+    </div>
+  </div>
+</div>
+
+<script>
+(function(){
+  const KEY = 'fc_community_posts_v1';
+  const feed = document.getElementById('feed');
+  const author = document.getElementById('author');
+  const topic = document.getElementById('topic');
+  const content = document.getElementById('content');
+  const publishBtn = document.getElementById('publishBtn');
+  const clearBtn = document.getElementById('clearBtn');
+
+  function load(){ try{ return JSON.parse(localStorage.getItem(KEY)) || []; }catch{ return []; } }
+  function save(list){ localStorage.setItem(KEY, JSON.stringify(list)); }
+  function card(p){
+    return `<div class="post mb-2">
+      <div class="d-flex justify-content-between align-items-center">
+        <h5 class="mb-0">${escapeHtml(p.author || 'Mentor')}</h5>
+        <small>${new Date(p.createdAt).toLocaleString()}</small>
+      </div>
+      ${p.topic ? `<div class="mt-1"><span class="tag">${escapeHtml(p.topic)}</span></div>`:''}
+      <p class="mt-2 mb-0">${escapeHtml(p.content || '')}</p>
+    </div>`;
+  }
+  function render(){
+    const items = load().sort((a,b)=> b.createdAt - a.createdAt);
+    feed.innerHTML = items.length ? items.map(card).join('') :
+      `<div class="text-center text-muted py-5 fc-card"><div class="fc-body">
+         <i class="bi bi-chat-dots display-6 d-block mb-2"></i>
+         No posts yet. Mentors can publish announcements above.
+       </div></div>`;
+  }
+  function escapeHtml(s){ return (s||'').replace(/[&<>"']/g,m=>({ '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;' }[m])); }
+
+  publishBtn.addEventListener('click', ()=>{
+    const a = author.value.trim();
+    const t = topic.value.trim();
+    const c = content.value.trim();
+    if(!c){ content.focus(); return; }
+    const list = load();
+    list.push({ author:a, topic:t, content:c, createdAt: Date.now() });
+    save(list);
+    content.value=''; topic.value=''; // author left as is
+    render();
+  });
+
+  clearBtn.addEventListener('click', ()=>{
+    if(confirm('Clear all local posts?')){ localStorage.removeItem(KEY); render(); }
+  });
+
+  render();
+})();
+</script>

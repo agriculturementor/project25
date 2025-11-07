@@ -1,101 +1,233 @@
 <% layout("/layout/new") %>
 
-<div class="sidebar">
-    <h4 class="fw-bold mb-0"><i class="bi bi-leaf me-2 text-success"></i>FarmConnect</h4>
-    <p class="text-muted">Northeast India</p>
+<style>
+/* ========= FarmConnect Formal Light Layout (Aligned + wired) ========= */
 
-    <nav class=" flex-column nav-menu">
-      <a href="#" class="nav-link active"><i class="bi bi-house-door me-2"></i>Home</a>
-      <a href="/mentor" class="nav-link"><i class="bi bi-people me-2"></i>Find Advisors</a>
-      <a href="/mentor/new" class="nav-link"><i class="bi bi-people me-2"></i>List as a mentor</a>
-      <a href="#" class="nav-link"><i class="bi bi-chat-dots me-2"></i>Community</a>
-      <a href="#" class="nav-link"><i class="bi bi-file-earmark-text me-2"></i>Government Schemes</a>
+/* --- Color Palette --- */
+:root {
+  --bg-main: #f9fafb;
+  --bg-card: #ffffff;
+  --border-color: #e5e7eb;
+  --text-main: #111827;
+  --text-muted: #6b7280;
+  --accent: #16a34a;
+  --accent-soft: #dcfce7;
+}
+
+/* --- General Reset --- */
+html, body {
+  background: var(--bg-main);
+  color: var(--text-main);
+  font-family: "Inter", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+}
+a, .nav-link { color: var(--text-muted); text-decoration: none; }
+a:hover, .nav-link:hover { color: var(--accent); }
+
+/* --- Layout --- */
+.main-wrap { display: flex; flex-wrap: nowrap; min-height: 100vh; overflow-x: hidden; }
+
+/* --- Sidebar --- */
+.sidebar {
+  background: var(--bg-card);
+  border-right: 1px solid var(--border-color);
+  min-width: 240px; max-width: 260px;
+  padding: 1.75rem 1rem;
+  display: flex; flex-direction: column; justify-content: flex-start;
+}
+.sidebar h4 { font-weight: 700; margin-bottom: 0.25rem; }
+.sidebar p { font-size: 0.9rem; color: var(--text-muted); margin-bottom: 1rem; }
+
+.nav-menu .nav-link {
+  padding: 0.6rem 0.9rem; border-radius: 8px; font-weight: 500;
+  display: flex; align-items: center; gap: 0.5rem; transition: 0.2s;
+}
+.nav-menu .nav-link.active { background: var(--accent-soft); color: var(--accent); font-weight: 600; }
+.nav-menu .nav-link:hover { background: var(--accent-soft); color: var(--accent); }
+
+.help-box {
+  background: var(--bg-card); border: 1px solid var(--border-color);
+  border-radius: 10px; padding: 1rem; margin-top: 1.5rem;
+}
+.help-box h6 { font-size: 1rem; font-weight: 600; margin-bottom: 0.5rem; }
+.help-box .btn {
+  background: var(--accent-soft); border: 1px solid var(--accent); color: var(--accent);
+  border-radius: 8px; width: 100%; transition: 0.2s;
+}
+.help-box .btn:hover { background: var(--accent); color: #fff; }
+
+/* --- Main Content --- */
+.main-content { flex: 1; padding: 2rem 2.5rem; }
+
+/* Hero */
+.hero {
+  background: linear-gradient(135deg, #dcfce7, #ffffff);
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  padding: 2rem;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+  margin-bottom: 2rem;
+}
+.hero h1 { font-weight: 800; margin-bottom: 0.5rem; color: #064e3b; }
+.hero p { color: var(--text-muted); margin-bottom: 1rem; }
+.hero .btn { border-radius: 8px; padding: 0.6rem 1rem; }
+.btn-success { background: var(--accent); color: #fff; border: none; }
+.btn-outline-success { border: 1px solid var(--accent); color: var(--accent); background: transparent; }
+.btn-outline-success:hover { background: var(--accent); color: #fff; }
+
+/* Stats */
+.stats-card {
+  background: var(--bg-card); border: 1px solid var(--border-color);
+  border-radius: 10px; padding: 1.25rem; text-align: left; box-shadow: 0 2px 4px rgba(0,0,0,0.03);
+}
+.stats-card h6 { text-transform: uppercase; color: var(--text-muted); font-size: 0.8rem; margin-bottom: 0.25rem; }
+.stats-card h3 { font-weight: 700; font-size: 1.8rem; margin: 0; }
+
+/* Search Bar */
+.search-bar {
+  background: var(--bg-card); border: 1px solid var(--border-color);
+  border-radius: 10px; padding: 0.75rem 1rem; margin-top: 1.5rem; margin-bottom: 1rem;
+}
+.search-bar input {
+  border: 1px solid var(--border-color); border-radius: 8px; padding: 0.6rem 0.9rem; width: 100%;
+}
+.search-bar button {
+  border-radius: 8px; background: var(--accent); color: #fff; border: none; padding: 0.6rem 1.2rem; transition: 0.2s;
+}
+.search-bar button:hover { background: #15803d; }
+
+/* Price Cards */
+#pricebox { margin-top: 1rem; scroll-margin-top: 90px; } /* nice anchor scroll stop */
+.price-card {
+  background: var(--bg-card); border: 1px solid var(--border-color);
+  border-radius: 10px; padding: 1rem 1rem 0.75rem; transition: 0.2s; height: 100%;
+}
+.price-card:hover { border-color: var(--accent); transform: translateY(-3px); }
+.price-card h5 { font-weight: 700; margin-bottom: 0.25rem; }
+.price-card .text-body-secondary { font-size: 0.85rem; color: var(--text-muted); }
+.price-card .kv { display: flex; justify-content: space-between; font-size: 0.9rem; color: var(--text-main); }
+.price-card .kv span:first-child { color: var(--text-muted); }
+
+/* --- Responsive --- */
+@media (max-width: 991.98px) {
+  .main-wrap { flex-direction: column; }
+  .sidebar { max-width: 100%; border-right: none; border-bottom: 1px solid var(--border-color); }
+  .main-content { padding: 1.5rem; }
+}
+</style>
+
+<div class="main-wrap">
+  <!-- Sidebar -->
+  <div class="sidebar">
+    <h4><i class="bi bi-leaf me-2 text-success"></i>FarmConnect</h4>
+    <p>Northeast India</p>
+
+    <nav class="nav-menu">
+      <a href="/" class="nav-link active"><i class="bi bi-house-door"></i>Home</a>
+      <a href="/mentor" class="nav-link"><i class="bi bi-people"></i>Find Advisors</a>
+      <a href="/mentor/new" class="nav-link"><i class="bi bi-person-plus"></i>List as a mentor</a>
+      <a href="/community" class="nav-link"><i class="bi bi-chat-dots"></i>Community</a>
+      <a href="/schemes" class="nav-link"><i class="bi bi-file-earmark-text"></i>Government Schemes</a>
     </nav>
 
     <div class="help-box">
       <h6><i class="bi bi-telephone me-2"></i>Need Help?</h6>
       <p class="mb-3">Our support team is here to assist you with any questions.</p>
-      <button class="btn btn-light">Contact Support</button>
+      <a class="btn" href="/community">Contact Support</a>
     </div>
   </div>
 
-  <!-- Main content -->
+  <!-- Main Content -->
   <div class="main-content">
+    <!-- Hero -->
     <div class="hero">
       <h1>Empowering Northeast Farmers</h1>
-      <p>Connect with expert advisors, access live market rates, and grow your farming success</p>
-      <div class="mt-4">
-       
-        <a href="/mentor"><button class="btn btn-light me-2">Find an Advisor</button></a> 
-      
-        <a href="#pricebox"><button class="btn btn-outline-light">View Market Rates</button></a>
+      <p>Connect with expert advisors, access live market rates, and grow your farming success.</p>
+      <div class="d-flex flex-wrap gap-2">
+        <!-- Button 1: Find Advisor -->
+        <a href="/mentor" class="btn btn-success"><i class="bi bi-person-check me-1"></i>Find an Advisor</a>
+        <!-- Button 2: View Market Rates (anchor to #pricebox) -->
+        <a href="#pricebox" class="btn btn-outline-success"><i class="bi bi-currency-rupee me-1"></i>View Market Rates</a>
+        <!-- Button 3: Community -->
+        <a href="/community" class="btn btn-outline-success"><i class="bi bi-chat-dots me-1"></i>Community</a>
+        <!-- Optional quick link to Schemes -->
+        <a href="/schemes" class="btn btn-outline-success"><i class="bi bi-file-earmark-text me-1"></i>Schemes</a>
       </div>
     </div>
 
-    <!-- Stats -->
-    <div class="row g-4">
-      <div class="col-md-4">
-        <div class="card stats-card">
-          <div class="card-body ">
-            <h6 class="text-muted"><i class="bi bi-person me-2 text-success"></i>Total Farmers</h6>
-            <h3>0</h3>
-            <small><i class="bi bi-graph-up-arrow me-1"></i>+12% this month</small>
-          </div>
+    <!-- Stats Section -->
+    <div class="row g-3 mb-4">
+      <div class="col-12 col-md-4">
+        <div class="stats-card">
+          <h6><i class="bi bi-person me-2 text-success"></i>Total Farmers</h6>
+          <h3>0</h3>
+          <small class="text-success"><i class="bi bi-graph-up-arrow me-1"></i>+12% this month</small>
         </div>
       </div>
-
-      <div class="col-md-4">
-        <div class="card stats-card">
-          <div class="card-body">
-            <h6 class="text-muted"><i class="bi bi-people-fill me-2 text-warning"></i>Expert Advisors</h6>
-            <h3><%= mentor.length %></h3>
-          </div>
+      <div class="col-12 col-md-4">
+        <div class="stats-card">
+          <h6><i class="bi bi-people-fill me-2 text-warning"></i>Expert Advisors</h6>
+          <h3><%= mentor.length %></h3>
         </div>
       </div>
-
-      <div class="col-md-4">
-        <div class="card stats-card">
-          <div class="card-body">
-            <h6 class="text-muted"><i class="bi bi-award me-2 text-success"></i>Verified Advisors</h6>
-            <h3><%= mentor.length %></h3>
-          </div>
+      <div class="col-12 col-md-4">
+        <div class="stats-card">
+          <h6><i class="bi bi-award me-2 text-success"></i>Verified Advisors</h6>
+          <h3><%= mentor.length %></h3>
         </div>
       </div>
     </div>
 
-    <!-- Search section -->
-    <div class="mt-5">
-      <h5><i class="bi bi-geo-alt me-2 text-success"></i>Live Crop Rates</h5>
-      <div class="search-bar mt-3 ">
-       <form action="/search" method="post" class="d-flex">
-         <input type="text" name="crop" class="form-control  col-6 offset-2" placeholder="Search district,state and crop.." required>
-         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-        <button class="btn btn-light"><i class="bi bi-search"></i></button>
-       </form>
+    <!-- Search Section -->
+    <div class="search-bar">
+      <form action="/search" method="post" class="row g-2 align-items-center">
+        <div class="col-md-9">
+          <input type="text" name="crop" class="form-control" placeholder="Search district, state and crop..." required>
+        </div>
+        <div class="col-md-auto">
+          <button type="submit"><i class="bi bi-search me-1"></i>Search</button>
+        </div>
+      </form>
+    </div>
+
+    <!-- Crop Prices -->
+    <div id="pricebox" class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-3">
+      <% for (const price of allprice) { %>
+      <div class="col">
+        <div class="price-card">
+          <h5><%= price.crop %></h5>
+          <div class="text-body-secondary mb-2">
+            State: <strong><%= price.state %></strong> •
+            District: <strong><%= price.district %></strong> •
+            Mandi: <strong><%= price.mandi %></strong>
+          </div>
+          <div class="kv"><span>Min</span><span><%= price.minPrice %>/<%= price.unit %></span></div>
+          <div class="kv"><span>Avg</span><span><%= price.avgPrice %>/<%= price.unit %></span></div>
+          <div class="kv"><span>Max</span><span><%= price.maxPrice %>/<%= price.unit %></span></div>
+        </div>
       </div>
-    <div id="pricebox" class=" row row-cols-lg-4 row-cols-md-3 row-cols-sm-1  ">
-      <% for(const price of allprice){ %>
-        <div class="card mb-3 ms-3" style="width: 18rem; height: 20rem;">
-  <div class="card-body  ">
-    <h5 class="card-title">State- <%= price.state %></h5>
-    <h6> District- <%= price.district %> </h6>
-    <h6 class="card-subtitle mb-2 text-body-secondary">Mandi- <%= price.mandi  %></h6>
-    <p class="card-text">Crop- <%= price.crop %></p>
-    <p class="card-text">Min Price- <%= price.minPrice %>/<%= price.unit %></p>
-    <p class="card-text">Avg Price- <%= price.avgPrice %>/<%=price.unit %></p>
-    <p class="card-text">Max Price- <%= price.maxPrice %>/<%=price.unit %></p>
-    
-  </div>
-</div>
-        
-        
-       
       <% } %>
-
     </div>
-
   </div>
 </div>
 
-  
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+/* Smooth-scroll for the hero "View Market Rates" button – isolated (won't affect other JS) */
+(function(){
+  const anchorLinks = document.querySelectorAll('a[href^="#"]');
+  anchorLinks.forEach(a=>{
+    a.addEventListener('click', function(e){
+      const id = this.getAttribute('href');
+      if(id && id.startsWith('#') && id.length > 1){
+        const el = document.querySelector(id);
+        if(el){
+          e.preventDefault();
+          el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          history.replaceState(null, '', id);
+        }
+      }
+    });
+  });
+})();
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>

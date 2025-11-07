@@ -111,6 +111,15 @@ app.post("/farmers/new/:id", async (req, res) => {
     res.redirect("/home");
 });
 
+app.get("/community", (req, res) => {
+  res.render("community.ejs");
+});
+
+// Schemes (uses free public API with fallback; view: views/schemes.ejs)
+app.get("/schemes", (req, res) => {
+  res.render("schemes.ejs");
+});
+
 app.listen(8080,(req,res)=>{
     console.log("port is listening on port 8080");
 });

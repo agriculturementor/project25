@@ -1,0 +1,109 @@
+<% layout("/layout/new") %>
+
+<style>
+:root{--bg:#f9fafb;--card:#fff;--border:#e5e7eb;--text:#111827;--muted:#6b7280;--accent:#16a34a}
+body{background:var(--bg);color:var(--text)}
+.fc-card{background:var(--card);border:1px solid var(--border);border-radius:12px;box-shadow:0 2px 6px rgba(0,0,0,.04)}
+.fc-head{border-bottom:1px solid var(--border);padding:1rem 1.25rem}
+.fc-body{padding:1.25rem}
+.form-control{border-radius:10px;border:1px solid var(--border);padding:.7rem .9rem}
+.badge-soft{background:#dcfce7;color:#065f46;border:1px solid #86efac;border-radius:999px;padding:.2rem .6rem}
+.scheme{background:#fff;border:1px solid var(--border);border-radius:12px;padding:1rem;height:100%}
+.scheme h5{margin:0 0 .25rem 0}
+.scheme .small{color:var(--muted)}
+a.scheme-link{color:#0f766e;text-decoration:none}
+a.scheme-link:hover{text-decoration:underline}
+</style>
+
+<div class="container py-3">
+  <div class="row justify-content-center g-3">
+    <div class="col-lg-10">
+      <div class="fc-card">
+        <div class="fc-head d-flex align-items-center justify-content-between">
+          <h3 class="mb-0">Government & Useful Schemes</h3>
+          <span class="badge-soft">Open Data</span>
+        </div>
+        <div class="fc-body">
+          <form class="row g-2 align-items-center" onsubmit="return false;">
+            <div class="col-12 col-md-6">
+              <input id="q" class="form-control" placeholder="Search by name/category (e.g., agriculture, finance, subsidy)">
+            </div>
+            <div class="col-12 col-md-auto">
+              <button id="go" class="btn btn-success" type="button"><i class="bi bi-search me-1"></i>Search</button>
+            </div>
+            <div class="col-12">
+              <small id="meta" class="text-muted"></small>
+            </div>
+          </form>
+        </div>
+      </div>
+
+      <div id="grid" class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-3 mt-2"></div>
+    </div>
+  </div>
+</div>
+
+<script>
+/* Uses a free public API (https://api.publicapis.org/) to find gov/agri related entries.
+   No keys required. Falls back to a small built-in list if the network fails. */
+(function(){
+  const API = 'https://api.publicapis.org/entries';
+  const grid = document.getElementById('grid');
+  const q = document.getElementById('q');
+  const go = document.getElementById('go');
+  const meta = document.getElementById('meta');
+
+  const FALLBACK = [
+    {API:'AgriStack (Guide)', Description:'Overview of India’s AgriStack & digitization initiatives.', Link:'https://agrithing.in/agristack-overview', Category:'Agriculture', HTTPS:true, Cors:'yes'},
+    {API:'Soil Health Card (Info)', Description:'Information portal on India’s Soil Health Card scheme.', Link:'https://soilhealth.dac.gov.in/', Category:'Agriculture', HTTPS:true, Cors:'no'},
+    {API:'PM-Kisan (Info)', Description:'PM-KISAN scheme official portal.', Link:'https://pmkisan.gov.in/', Category:'Government', HTTPS:true, Cors:'no'},
+  ];
+
+  function card(x){
+    return `<div class="col">
+      <div class="scheme">
+        <h5>${escapeHtml(x.API || 'Scheme')}</h5>
+        <div class="small mb-1">${escapeHtml(x.Category || 'Government')}</div>
+        <p class="mb-2">${escapeHtml(x.Description || '')}</p>
+        <a class="scheme-link" href="${x.Link}" target="_blank" rel="noopener">Open resource</a>
+      </div>
+    </div>`;
+  }
+  function escapeHtml(s){ return (s||'').replace(/[&<>"']/g,m=>({ '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;' }[m])); }
+
+  async function search(){
+    const term = (q.value || '').trim().toLowerCase();
+    meta.textContent = 'Loading…';
+    try{
+      const res = await fetch(API);
+      const json = await res.json();
+      let items = (json.entries || []).filter(e=>{
+        const hay = `${e.API} ${e.Description} ${e.Category}`.toLowerCase();
+        // prefer agriculture/farming/government
+        return ['agri','farm','crop','soil','weather','gov','government','rural','subsidy'].some(k=>hay.includes(k));
+      });
+      if(term) items = items.filter(e=>{
+        const hay = `${e.API} ${e.Description} ${e.Category}`.toLowerCase();
+        return term.split(/\s+/).every(t=>hay.includes(t));
+      });
+      meta.textContent = `${items.length} resources found`;
+      grid.innerHTML = items.length ? items.map(card).join('') :
+        `<div class="col"><div class="scheme"><p class="mb-0">No results. Try a different term.</p></div></div>`;
+    }catch(e){
+      // fallback
+      let items = FALLBACK;
+      if(term) items = items.filter(e=>{
+        const hay = `${e.API} ${e.Description} ${e.Category}`.toLowerCase();
+        return term.split(/\s+/).every(t=>hay.includes(t));
+      });
+      meta.textContent = `Offline mode – showing ${items.length} curated resources`;
+      grid.innerHTML = items.map(card).join('');
+    }
+  }
+
+  go.addEventListener('click', search);
+  q.addEventListener('keyup', e=>{ if(e.key==='Enter') search(); });
+
+  search(); // initial
+})();
+</script>
