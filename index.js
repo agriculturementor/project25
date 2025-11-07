@@ -32,7 +32,7 @@ app.get("/profile",(req,res) =>{
 app.get("/home",async(req,res) =>{
  const allprice = await CropPrice.find({});
  const mentor = await mentors.find({});
- console.log(mentor.length);
+ 
     res.render("home.ejs", {allprice,mentor});
 });
 app.get("/Price/New", (req, res) => {
@@ -51,7 +51,7 @@ app.get("/mentor/new", (req, res) => {
 });
 app.post("/mentor/new/add", async (req, res) => {
     const newmentor = new mentors( req.body.Mentor);
-  console.log(newmentor);
+  // console.log(newmentor);
      await newmentor.save();
     res.redirect("/mentor");
 });
